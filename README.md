@@ -6,4 +6,4 @@ Our attempt at making an agent for the ANAC 2015 compeition.
 
 * Sam Beckmann
 * Nate Beckemeyer
-* Abi Cislo
+* Abi Sislo
