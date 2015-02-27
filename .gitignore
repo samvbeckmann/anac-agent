@@ -1,0 +1,17 @@
+bin/
+Log*.csv
+DataObjects/
+.idea/
+.classpath
+.project
+agentrepository.xml
+boarepository.xml
+domainrepository.xml
+genius.jar
+genius-anac-2015.iml
+genius_docs.zip
+multipartyprotocolrepository.xml
+partyrepository.xml
+previousTournament
+protocolrepository.xml
+etc/
