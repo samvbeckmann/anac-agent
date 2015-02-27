@@ -3,10 +3,12 @@ package negotiator.groupn;
 import java.util.List;
 import java.util.Map;
 
+import negotiator.Bid;
 import negotiator.DeadlineType;
 import negotiator.Timeline;
 import negotiator.actions.Accept;
 import negotiator.actions.Action;
+import negotiator.actions.EndNegotiation;
 import negotiator.actions.Offer;
 import negotiator.parties.AbstractNegotiationParty;
 import negotiator.utility.UtilitySpace;
@@ -45,15 +47,19 @@ public class Groupn extends AbstractNegotiationParty
     public Action chooseAction(List<Class> validActions)
     {
 
+
+
         // with 50% chance, counter offer
         // if we are the first party, also offer.
-        if (!validActions.contains(Accept.class) || Math.random() > 0.5)
-        {
-            return new Offer(generateRandomBid());
-        } else
-        {
-            return new Accept();
-        }
+        return new EndNegotiation();
+
+//        if (!validActions.contains(Accept.class) || Math.random() > 0.5)
+//        {
+//            return new Offer(generateRandomBid());
+//        } else
+//        {
+//            return new Accept();
+//        }
     }
 
 
@@ -68,6 +74,11 @@ public class Groupn extends AbstractNegotiationParty
     public void receiveMessage(Object sender, Action action)
     {
         super.receiveMessage(sender, action);
+
+        if (Action.getBidFromAction(action) != null)
+        {
+            Bid receivedBid = Action.getBidFromAction(action);
+        }
         // Here you can listen to other parties' messages
     }
 
