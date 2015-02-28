@@ -16,7 +16,7 @@ import negotiator.utility.UtilitySpace;
 /**
  * This is your negotiation party.
  */
-public class Groupn extends AbstractNegotiationParty
+public class MeanBot extends AbstractNegotiationParty
 {
 
     private Bid currentBid;
@@ -29,10 +29,10 @@ public class Groupn extends AbstractNegotiationParty
      * @param timeline     Value counting from 0 (start) to 1 (end).
      * @param randomSeed   If you use any randomization, use this seed for it.
      */
-    public Groupn(UtilitySpace utilitySpace,
-                  Map<DeadlineType, Object> deadlines,
-                  Timeline timeline,
-                  long randomSeed)
+    public MeanBot(UtilitySpace utilitySpace,
+                   Map<DeadlineType, Object> deadlines,
+                   Timeline timeline,
+                   long randomSeed)
     {
         // Make sure that this constructor calls it's parent.
         super(utilitySpace, deadlines, timeline, randomSeed);
