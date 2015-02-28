@@ -3,12 +3,12 @@ package negotiator.groupn;
 import java.util.List;
 import java.util.Map;
 
+import agents.OptimalBidderSimple;
 import negotiator.Bid;
 import negotiator.DeadlineType;
 import negotiator.Timeline;
 import negotiator.actions.Accept;
 import negotiator.actions.Action;
-import negotiator.actions.EndNegotiation;
 import negotiator.actions.Offer;
 import negotiator.parties.AbstractNegotiationParty;
 import negotiator.utility.UtilitySpace;
@@ -18,6 +18,8 @@ import negotiator.utility.UtilitySpace;
  */
 public class Groupn extends AbstractNegotiationParty
 {
+
+    private Bid currentBid;
 
     /**
      * Please keep this constructor. This is called by genius.
@@ -46,22 +48,21 @@ public class Groupn extends AbstractNegotiationParty
     @Override
     public Action chooseAction(List<Class> validActions)
     {
+        try
+        {
+            if (validActions.contains(Accept.class)
+                    && timeline.getTime() >= .95
+                    && utilitySpace.getUtility(currentBid) > .5)
+            {
+                return new Accept();
+            } else
+                return new Offer(utilitySpace.getMaxUtilityBid());
 
-
-
-        // with 50% chance, counter offer
-        // if we are the first party, also offer.
-        return new EndNegotiation();
-
-//        if (!validActions.contains(Accept.class) || Math.random() > 0.5)
-//        {
-//            return new Offer(generateRandomBid());
-//        } else
-//        {
-//            return new Accept();
-//        }
+        } catch (Exception e)
+        {
+            return new Accept(); // Not sure what to put here... Don't know what error I would be hitting.
+        }
     }
-
 
     /**
      * All offers proposed by the other parties will be received as a message.
@@ -75,9 +76,10 @@ public class Groupn extends AbstractNegotiationParty
     {
         super.receiveMessage(sender, action);
 
-        if (Action.getBidFromAction(action) != null)
+        if (action instanceof Offer)
         {
-            Bid receivedBid = Action.getBidFromAction(action);
+            // Know what the most recent bid on the table is, for evaluation.
+            currentBid = Action.getBidFromAction(action);
         }
         // Here you can listen to other parties' messages
     }
