@@ -1,9 +1,8 @@
-package negotiator.groupn;
+package negotiator.meanBot;
 
 import java.util.List;
 import java.util.Map;
 
-import agents.OptimalBidderSimple;
 import negotiator.Bid;
 import negotiator.DeadlineType;
 import negotiator.Timeline;
